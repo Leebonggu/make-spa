@@ -1,3 +1,3 @@
-import { A } from './constant/index.js';
+import { BASE_URL } from './constant/index.js';
 
-console.log(A);
+console.log(BASE_URL);
