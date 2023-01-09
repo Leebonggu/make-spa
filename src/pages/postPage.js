@@ -1,4 +1,4 @@
-function postPage() {
+async function postPage() {
 	console.log('postPage');
 }
 
