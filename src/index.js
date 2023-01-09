@@ -1,12 +1,11 @@
-import { BASE_URL } from './constant/index.js';
-import { postPage } from './pages/main.js';
+import { mainPage } from './pages/index.js';
 
 const render = (element, htmlString) => {
 	const main = document.createElement('main');
 	main.innerHTML = htmlString;
 
 	element.appendChild(main);
-	console.log(postPage());
+	console.log(mainPage);
 };
 
 const root = document.getElementById('root');
