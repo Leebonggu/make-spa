@@ -12,7 +12,10 @@ const routes = [
 
 const render = async (element) => {
 	const main = document.createElement('main');
-	// const hash = window.location.hash.replace('#', '');
+	/**
+	 * 2안: hash router
+	 * const hash = window.location.hash.replace('#', '');
+	 */
 	const component = routes.find((route) => {
 		return route.path === window.location.pathname;
 	})?.component;
