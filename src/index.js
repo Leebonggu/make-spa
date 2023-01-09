@@ -6,8 +6,8 @@ const root = document.getElementById('root');
 const routes = [
 	{ path: ROUTES.HOME, component: mainPage },
 	{ path: ROUTES.UPLOAD, component: uploadPage },
-	{ path: ROUTES.EDIT(1), component: editPage },
-	{ path: ROUTES.POST(1), component: postPage },
+	{ path: ROUTES.EDIT(), component: editPage },
+	{ path: ROUTES.POST(), component: postPage },
 ];
 
 const render = async (element) => {
@@ -17,15 +17,17 @@ const render = async (element) => {
 		return route.path === window.location.pathname;
 	})?.component;
 
+	const contents = await component();
+
 	main.innerHTML = `
-		<nav id="navigation">
-			<a href='/'>Home</a>
-			<a href='/upload'>Upload</a>
-			<a href='/post/1'>Write</a>
-			<a href='/edit/1'>Edit</a>
-		</nav>
-		${await component()}
-	`;
+			<nav id="navigation">
+				<a href='/'>Home</a>
+				<a href='/upload'>Upload</a>
+				<a href='/post'>Write</a>
+				<a href='/edit'>Edit</a>
+			</nav>
+			${contents}
+		`;
 
 	element.appendChild(main);
 };
