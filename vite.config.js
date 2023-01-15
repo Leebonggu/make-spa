@@ -1,3 +1,5 @@
+import tailwindcss from 'tailwindcss';
+
 /** @type {import('vite').UserConfig} */
 export default {
 	// 설정 옵션들
@@ -11,5 +13,10 @@ export default {
 	},
 	preview: {
 		port: 4000,
+	},
+	css: {
+		postcss: {
+			plugins: [tailwindcss],
+		},
 	},
 };
