@@ -26,7 +26,7 @@ async function mainPage() {
 		.map(
 			(post) =>
 				`
-			<li class='w-full h-[150px] border-2 border-gray-200 rounded-lg overflow-hidden p-3 flex'>
+			<li class='w-full h-[150px] rounded-lg overflow-hidden p-3 flex shadow-lg'>
 				<a
 					class='w-full flex'
 					href=post/${post.postId}
@@ -45,9 +45,9 @@ async function mainPage() {
 	const postListComponent = postListWrapper(postList);
 
 	return `
-	<div class='w-full flex flex-col justify-center items-center pt-[160px]'>
-		${postListComponent}
-	</div>
+		<div class='w-full flex flex-col justify-center items-center pt-[160px]'>
+			${postListComponent}
+		</div>
 	`;
 }
 
