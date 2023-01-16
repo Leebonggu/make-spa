@@ -4,28 +4,28 @@ import { layout } from './pages/common/index.js';
 
 const root = document.getElementById('root');
 
-const checkRouter = () => {};
-function createRotuer() {
-	const params = {};
-	const router = {};
-	const routes = [];
+// const checkRouter = () => {};
+// function createRotuer() {
+// 	const params = {};
+// 	const router = {};
+// 	const routes = [];
 
-	router.addRoutes = (path, page) => {
-		const alreadyAddedPath = routes.find((route) => route.path === path);
-		if (alreadyAddedPath) return;
+// 	router.addRoutes = (path, page) => {
+// 		const alreadyAddedPath = routes.find((route) => route.path === path);
+// 		if (alreadyAddedPath) return;
 
-		routes.push({
-			path,
-			page,
-		});
+// 		routes.push({
+// 			path,
+// 			page,
+// 		});
 
-		return router;
-	};
+// 		return router;
+// 	};
 
-	router.render = () => {
-		return router;
-	};
-}
+// 	router.render = () => {
+// 		return router;
+// 	};
+// }
 
 const routes = [
 	{ path: ROUTES.HOME, component: mainPage },
@@ -36,10 +36,7 @@ const routes = [
 
 const render = async (element) => {
 	const div = document.createElement('div');
-	/**
-	 * 2안: hash router
-	 * const hash = window.location.hash.replace('#', '');
-	 */
+
 	const component = routes.find((route) => {
 		return route.path === window.location.pathname;
 	})?.component;
@@ -52,6 +49,9 @@ const render = async (element) => {
 		`;
 
 	element.appendChild(div);
+	document.getElementById('header-back')?.addEventListener('click', () => {
+		history.back(-1);
+	});
 };
 
 window.addEventListener('historychange', render);

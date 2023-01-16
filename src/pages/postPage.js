@@ -1,4 +1,5 @@
-async function postPage() {
+async function postPage(params) {
+	console.log(params);
 	console.log('postPage');
 
 	return 'postPage';

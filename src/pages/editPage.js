@@ -1,5 +1,5 @@
-async function editPage() {
-	console.log('editPage');
+async function editPage(params) {
+	console.log(params);
 
 	return 'editPage';
 }

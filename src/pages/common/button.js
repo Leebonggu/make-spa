@@ -1,10 +1,10 @@
 function button(to = '', text = '') {
 	return `
-    <button class='w-[336px] h-[67px] rounded-xl text-white bg-emerald-400'>
-      <a href=${to}>
-        ${text}
-      </a>
+  <a href=${to} class=''>
+    <button  class='w-full h-[67px] rounded-xl text-white bg-emerald-400'>
+      ${text}
     </button>
+  </a>
   `;
 }
 

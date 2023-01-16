@@ -1,6 +1,4 @@
 async function notFoundPage() {
-	console.log('notFoundPage');
-
 	return 'notFoundPage';
 }
 
