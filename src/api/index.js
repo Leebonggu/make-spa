@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL } from '../constant/index.js';
+import { BASE_URL, IMAGE_URL } from '../constant/index.js';
 
 const instance = axios.create({
 	baseURL: BASE_URL,
@@ -23,4 +23,15 @@ const createComment = async (postId, data) => instance.post(`/comment/${postId}`
 
 const deleteComment = async (commentId) => instance.delete(`/comment/${commentId}`);
 
-export { readPosts, readPost, createPost, updatePost, deletePost, createComment, deleteComment };
+const getRandomImage = async () => instance.get(IMAGE_URL);
+
+export {
+	readPosts,
+	readPost,
+	createPost,
+	updatePost,
+	deletePost,
+	createComment,
+	deleteComment,
+	getRandomImage,
+};

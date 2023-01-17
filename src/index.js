@@ -1,7 +1,7 @@
 import { ROUTES } from './constant/index.js';
 import { editPage, mainPage, postPage, uploadPage, notFoundPage } from './pages/index.js';
 import { layout } from './pages/common/index.js';
-import { deleteComment, deletePost } from './api/index.js';
+import { createPost, deleteComment, deletePost, getRandomImage } from './api/index.js';
 
 const $root = document.getElementById('root');
 
@@ -57,10 +57,16 @@ const render = async (element) => {
 	// document.getElementById('delete-post')?.addEventListener('click', () => {
 	// 	console.log('delete');
 	// });
+
 	const $headerGoBack = document.getElementById('header-back');
 	const $editPost = document.querySelector('#edit-post');
 	const $deletePost = document.querySelector('#delete-post');
 	const $commentList = document.querySelector('#comment-list');
+	const $uploadForm = document.querySelector('#upload-form');
+	const $uploadImage = document.querySelector('#upload-image');
+	const $uploadTitleInput = document.querySelector('#upload-title');
+	const $uploadContentsTextarea = document.querySelector('#upload-contents');
+	const $uploadSubmitButton = document.querySelector('#upload-submit-button');
 
 	$headerGoBack?.addEventListener('click', () => {
 		history.back(-1);
@@ -95,6 +101,45 @@ const render = async (element) => {
 			.join('');
 
 		$commentList.innerHTML = leftComments;
+	});
+
+	$uploadImage?.addEventListener('click', async () => {
+		const {
+			data: { urls },
+		} = await getRandomImage();
+
+		$uploadImage.value = urls.regular;
+		$uploadImage.disabled = true;
+		$uploadImage.classList.add('disabled');
+		$uploadImage.classList.add('bg-gray-400');
+		$uploadImage.classList.add('text-white');
+	});
+
+	$uploadForm?.addEventListener('change', () => {
+		if (
+			$uploadImage.value.length > 0 &&
+			$uploadTitleInput.value.length > 0 &&
+			$uploadContentsTextarea.value.length > 0
+		) {
+			console.log($uploadSubmitButton);
+			$uploadSubmitButton.disabled = false;
+			$uploadSubmitButton.classList.remove('bg-gray-400');
+			$uploadSubmitButton.classList.add('bg-emerald-400');
+		} else {
+			$uploadSubmitButton.disabled = true;
+			$uploadSubmitButton.classList.remove('bg-emerald-400');
+			$uploadSubmitButton.classList.add('bg-gray-400');
+		}
+	});
+
+	$uploadForm?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		const image = $uploadImage.value;
+		const title = $uploadTitleInput.value;
+		const content = $uploadContentsTextarea.value;
+
+		await createPost({ image, title, content });
+		window.location.href = '/';
 	});
 };
 
