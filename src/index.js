@@ -103,14 +103,19 @@ const render = async (element) => {
 		$commentList.innerHTML = leftComments;
 	});
 
-	$uploadImage?.addEventListener('click', async () => {
+	$uploadImage.addEventListener('click', async (e) => {
+		e.preventDefault();
+		console.log('hello');
 		const {
 			data: { urls },
 		} = await getRandomImage();
 
+		console.log(urls);
+
 		$uploadImage.value = urls.regular;
 		$uploadImage.disabled = true;
 		$uploadImage.classList.add('disabled');
+		$uploadImage.classList.remove('bg-emerald-400');
 		$uploadImage.classList.add('bg-gray-400');
 		$uploadImage.classList.add('text-white');
 	});
