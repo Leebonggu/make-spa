@@ -39,7 +39,7 @@ async function mainPage() {
 			.join('');
 
 		return `
-			<div class='w-full flex flex-col justify-center items-center pt-[160px]'>
+			<div class='w-full flex flex-col justify-center items-center pt-[80px]'>
 				<ul class='flex flex-col gap-6 w-full'>
 					${postList}
 				</ul>

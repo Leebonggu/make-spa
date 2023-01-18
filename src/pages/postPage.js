@@ -45,7 +45,7 @@ async function postPage(params) {
 			.join('');
 
 		const comments = `
-			<ul id='comment-list' class='max-h-[300px] px-5 flex flex-col gap-2'>
+			<ul id='comment-list' class=' px-5 flex flex-col gap-2 pb-16'>
 				${commentList}
 			</ul>
 		`;
