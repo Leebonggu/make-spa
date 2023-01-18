@@ -15,7 +15,7 @@ const readPost = async (postId) => instance.get(`/post/${postId}`);
 
 const createPost = async (data) => instance.post(`/post`, data);
 
-const updatePost = async (postId, data) => instance.patch(`/posts/${postId}`, data);
+const updatePost = async (postId, data) => instance.patch(`/post/${postId}`, data);
 
 const deletePost = async (postId) => instance.delete(`/post/${postId}`);
 

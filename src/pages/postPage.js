@@ -1,10 +1,15 @@
 import { readPost } from '../api/index.js';
 
 async function postPage(params) {
-	console.log(params);
+	const { postId } = params;
 	const {
-		data: { data },
-	} = await readPost(params.postId);
+		data: { data, code },
+	} = await readPost(postId);
+
+	if (code >= 400) {
+		window.alert('목록을 불러올 수 없습니다.');
+		return;
+	}
 
 	const { post: postData, comments: commentsData } = data;
 	const post = `
@@ -15,16 +20,14 @@ async function postPage(params) {
 				<div class='text-sm text-gray-400'>${postData.createdAt.split('T')[0]}</div>
 				<div>${postData.content}</div>
 				<div class='flex justify-end gap-2'>
-					<a href='/edit/${params.postId}'>
-						<button id='edit-post' class='py-1 px-4 text-white bg-emerald-400 rounded-lg' value='269'>수정</button>
+					<a href='/edit/${postId}'>
+						<button id='edit-post-button' class='py-1 px-4 text-white bg-emerald-400 rounded-lg' value=${postId}>수정</button>
 					</a>
-					<button id='delete-post' class='py-1 px-4 text-white bg-emerald-400 rounded-lg' value='269'>삭제</button>
+					<button id='delete-post-button' class='py-1 px-4 text-white bg-emerald-400 rounded-lg' value=${postId}>삭제</button>
 				</div>
 			</div>
 		</div>
 	`;
-
-	console.log(commentsData);
 
 	const commentList = commentsData
 		.map(
