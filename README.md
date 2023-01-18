@@ -24,7 +24,9 @@
 
 ### 배포
 
-- AWS, 네이버 Cloud...
+- **AWS**, 네이버 Cloud...
+- S3
+  - Advanced: CI/CD using Github actions
 
 ### API
 
@@ -37,12 +39,3 @@
 - 댓글
   - [POST] - /comment/:postId
   - [DELETE] - /comment/:commentId
-
-## Todo
-
-- 라우터 완성
-- 기본 디자인 (tailwind?)
-
-## Refer
-
-- https://nukw0n-dev.tistory.com/34
