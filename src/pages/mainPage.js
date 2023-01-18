@@ -29,7 +29,7 @@ async function mainPage() {
 			<li class='w-full h-[150px] rounded-lg overflow-hidden p-3 flex shadow-lg'>
 				<a
 					class='w-full flex'
-					href=post/${post.postId}
+					href='/post/${post.postId}'
 				>
 					<img src=${post.image} class='h-full object-fill w-1/5' />
 					<div class='w-4/5 py-3 px-4']>

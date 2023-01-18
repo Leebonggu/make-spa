@@ -1,9 +1,10 @@
 import { readPost } from '../api/index.js';
 
 async function postPage(params) {
+	console.log(params);
 	const {
 		data: { data },
-	} = await readPost(269);
+	} = await readPost(params.postId);
 
 	const { post: postData, comments: commentsData } = data;
 	const post = `
@@ -14,7 +15,9 @@ async function postPage(params) {
 				<div class='text-sm text-gray-400'>${postData.createdAt.split('T')[0]}</div>
 				<div>${postData.content}</div>
 				<div class='flex justify-end gap-2'>
-					<button id='edit-post' class='py-1 px-4 text-white bg-emerald-400 rounded-lg' value='269'>수정</button>
+					<a href='/edit/${params.postId}'>
+						<button id='edit-post' class='py-1 px-4 text-white bg-emerald-400 rounded-lg' value='269'>수정</button>
+					</a>
 					<button id='delete-post' class='py-1 px-4 text-white bg-emerald-400 rounded-lg' value='269'>삭제</button>
 				</div>
 			</div>
@@ -37,13 +40,13 @@ async function postPage(params) {
 		.join('');
 
 	const comments = `
-		<div class='max-h-[180px] overflow-hidden overflow-y-scroll'>
+		<div class='overflow-hidden overflow-y-scroll'>
 			<ul id='comment-list' class='px-5 flex flex-col gap-2'>
 				${commentList}
 			</ul>
 			<form id='add-comment' class='max-w-[720px] w-full fixed bottom-0 px-5'>
 				<div class='flex overflow-hidden rounded-lg'>
-					<input class='w-4/5 bg-gray-200 py-2' />
+					<input class='w-4/5 bg-gray-200 py-2 px-4 outline-none' />
 					<button id='delete-post' class='w-1/5 py-1 px-4 text-white bg-emerald-400 ' type='submit'>댓글</button>
 				</div>
 			</form>
