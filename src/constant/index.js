@@ -5,7 +5,7 @@ const BASE_URL = 'http://43.201.103.199/';
 const ROUTES = {
 	HOME: '/',
 	UPLOAD: '/upload',
-	POST: '/post/269',
+	POST: '/post/:postId',
 	EDIT: '/edit/:postId',
 };
 

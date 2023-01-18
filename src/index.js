@@ -5,29 +5,6 @@ import { createPost, deleteComment, deletePost, getRandomImage } from './api/ind
 
 const $root = document.getElementById('root');
 
-// const checkRouter = () => {};
-// function createRotuer() {
-// 	const params = {};
-// 	const router = {};
-// 	const routes = [];
-
-// 	router.addRoutes = (path, page) => {
-// 		const alreadyAddedPath = routes.find((route) => route.path === path);
-// 		if (alreadyAddedPath) return;
-
-// 		routes.push({
-// 			path,
-// 			page,
-// 		});
-
-// 		return router;
-// 	};
-
-// 	router.render = () => {
-// 		return router;
-// 	};
-// }
-
 const routes = [
 	{ path: ROUTES.HOME, component: mainPage },
 	{ path: ROUTES.UPLOAD, component: uploadPage },
@@ -37,12 +14,23 @@ const routes = [
 
 const render = async (element) => {
 	const $div = document.createElement('div');
+	const params = {};
 
 	const component = routes.find((route) => {
-		return route.path === window.location.pathname;
+		const targetPath = route.path.split('/').slice(1);
+		const currentPath = window.location.pathname.split('/').slice(1);
+		if (targetPath.at(0) === currentPath.at(0) && targetPath.length === currentPath.length) {
+			if (targetPath.length > 1 && currentPath.length > 1) {
+				targetPath.slice(1).forEach((key, index) => {
+					const parsedKey = key.replace(':', '');
+					params[parsedKey] = currentPath[index + 1];
+				});
+			}
+			return true;
+		}
 	})?.component;
 
-	const contents = component ? await component() : await notFoundPage();
+	const contents = component ? await component(params) : await notFoundPage();
 	const layoutComponent = layout(contents);
 
 	$div.innerHTML = `
@@ -50,13 +38,6 @@ const render = async (element) => {
 		`;
 
 	element.appendChild($div);
-	// document.getElementById('header-back')?.addEventListener('click', () => {
-	// 	history.back(-1);
-	// });
-
-	// document.getElementById('delete-post')?.addEventListener('click', () => {
-	// 	console.log('delete');
-	// });
 
 	const $headerGoBack = document.getElementById('header-back');
 	const $editPost = document.querySelector('#edit-post');
@@ -74,8 +55,6 @@ const render = async (element) => {
 
 	$editPost?.addEventListener('click', (e) => {
 		const { value } = e.target;
-		console.log(e.target.value);
-		console.log('edit');
 	});
 
 	$deletePost?.addEventListener('click', async (e) => {
@@ -103,14 +82,12 @@ const render = async (element) => {
 		$commentList.innerHTML = leftComments;
 	});
 
-	$uploadImage.addEventListener('click', async (e) => {
+	$uploadImage?.addEventListener('click', async (e) => {
 		e.preventDefault();
 		console.log('hello');
 		const {
 			data: { urls },
 		} = await getRandomImage();
-
-		console.log(urls);
 
 		$uploadImage.value = urls.regular;
 		$uploadImage.disabled = true;
