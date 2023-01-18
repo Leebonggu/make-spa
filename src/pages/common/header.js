@@ -5,7 +5,7 @@ function header() {
 	const buttonComponent = button('/upload', '새 글 작성하기');
 
 	return `
-    <div id="navigation" class="max-w-[720px] w-full h-[60px]">
+    <header id="navigation" class="max-w-[720px] w-full h-[60px] fixed top-0">
       <div class='flex h-full bg-white items-center justify-between'>
         <div id='header-back'>
           ${
@@ -32,15 +32,15 @@ function header() {
         <div class='text-2xl'>
           <a href='/'>HAPPY 2023</a>
         </div>
-      </div
+      </div>
       ${
 				pathname === '/'
 					? `<div class='w-full mb-8'>
         ${buttonComponent}
-      </div> `
+      </div>`
 					: ''
 			}
-    </div>
+    </header>
   `;
 }
 
