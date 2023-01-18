@@ -5,7 +5,7 @@ function header() {
 	const buttonComponent = button('/upload', '새 글 작성하기');
 
 	return `
-    <header id="navigation" class="max-w-[720px] w-full h-[60px] fixed top-0">
+    <header id="navigation" class="max-w-[640px] w-full h-[60px] fixed top-0">
       <div class='flex h-full bg-white items-center justify-between'>
         <div id='header-back'>
           ${
