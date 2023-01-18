@@ -1,7 +1,14 @@
 import { ROUTES } from './constant/index.js';
 import { editPage, mainPage, postPage, uploadPage, notFoundPage } from './pages/index.js';
 import { layout } from './pages/common/index.js';
-import { createPost, deleteComment, deletePost, getRandomImage, updatePost } from './api/index.js';
+import {
+	createComment,
+	createPost,
+	deleteComment,
+	deletePost,
+	getRandomImage,
+	updatePost,
+} from './api/index.js';
 
 const $root = document.getElementById('root');
 
@@ -13,7 +20,6 @@ const routes = [
 ];
 
 const render = async (element) => {
-	const $div = document.createElement('div');
 	const params = {};
 
 	const component = routes.find((route) => {
@@ -33,23 +39,26 @@ const render = async (element) => {
 	const contents = component ? await component(params) : await notFoundPage();
 	const layoutComponent = layout(contents);
 
-	$div.innerHTML = `
-			${layoutComponent}
-		`;
+	element.innerHTML = layoutComponent;
 
-	element.appendChild($div);
+	//** DOM */
 
 	const $headerGoBack = document.getElementById('header-back');
 
-	const $deletePostButton = document.querySelector('#delete-post-button');
-	// comment
-	const $commentList = document.querySelector('#comment-list');
-	// upload
+	// post upload
 	const $uploadForm = document.querySelector('#upload-form');
 	const $uploadImage = document.querySelector('#upload-image');
 	const $uploadTitleInput = document.querySelector('#upload-title');
 	const $uploadContentsTextarea = document.querySelector('#upload-contents');
 	const $uploadSubmitButton = document.querySelector('#upload-submit-button');
+
+	// delete post
+	const $deletePostButton = document.querySelector('#delete-post-button');
+
+	// comment
+	const $commentList = document.querySelector('#comment-list');
+	const $addCommentForm = document.querySelector('#add-comment-form');
+	const $addCommentInput = document.querySelector('#add-comment-input');
 
 	// edit
 	const $editForm = document.querySelector('#edit-form');
@@ -76,6 +85,11 @@ const render = async (element) => {
 		}
 	});
 
+	// $addCommentForm?.addEventListener('submit', async (e) => {
+	// 	e.preventDefault();
+	// 	const comment = $addCommentInput.value;
+	// })
+
 	$commentList?.addEventListener('click', async (e) => {
 		const { value } = e.target;
 
@@ -86,6 +100,38 @@ const render = async (element) => {
 			.join('');
 
 		$commentList.innerHTML = leftComments;
+	});
+
+	$addCommentForm?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		const content = $addCommentInput.value;
+		const {
+			data: {
+				code,
+				message,
+				data: { commentId, content: newContent },
+			},
+		} = await createComment(params.postId, { content });
+		$addCommentInput.value = '';
+
+		if (code < 400) {
+			const newComment = document.createElement('li');
+			newComment.value = commentId;
+			newComment.classList.add('py-2');
+			newComment.classList.add('flex');
+			newComment.classList.add('justify-between');
+			newComment.innerHTML = `
+				<span class='flex items-center overflow-hidden text-ellipsis w-10/12'>
+					${newContent}
+				</span>
+				<button class='py-1 px-4 bg-red-400 text-white rounded-lg' value=${commentId}>삭제</button>
+			`;
+			console.log('hello');
+			$commentList.appendChild(newComment);
+		} else {
+			window.alert(message);
+			return;
+		}
 	});
 
 	$uploadImage?.addEventListener('click', async (e) => {

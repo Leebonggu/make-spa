@@ -32,7 +32,7 @@ async function postPage(params) {
 	const commentList = commentsData
 		.map(
 			(commentData) => `
-				<li class='flex justify-between' value=${commentData.commentId}>
+				<li class='py-2 flex justify-between' value=${commentData.commentId}>
 					<span class='flex items-center overflow-hidden text-ellipsis w-10/12'>
 						${commentData.content}
 					</span>
@@ -43,23 +43,21 @@ async function postPage(params) {
 		.join('');
 
 	const comments = `
-		<div class='overflow-hidden overflow-y-scroll'>
-			<ul id='comment-list' class='px-5 flex flex-col gap-2'>
-				${commentList}
-			</ul>
-			<form id='add-comment' class='max-w-[720px] w-full fixed bottom-0 px-5'>
-				<div class='flex overflow-hidden rounded-lg'>
-					<input class='w-4/5 bg-gray-200 py-2 px-4 outline-none' />
-					<button id='delete-post' class='w-1/5 py-1 px-4 text-white bg-emerald-400 ' type='submit'>댓글</button>
-				</div>
-			</form>
-		</div>
+		<ul id='comment-list' class='max-h-[300px] px-5 flex flex-col gap-2'>
+			${commentList}
+		</ul>
 	`;
 
 	const postPageWrapper = (post, comments) => `
-		<div>
+		<div class='min-h-screen'>
 			${post}
 			${comments}
+			<form id='add-comment-form' class='max-w-[720px] w-full fixed bottom-[-15px] px-5 bg-white'>
+				<div class='flex overflow-hidden rounded-lg'>
+					<input id='add-comment-input' class='w-4/5 bg-gray-200 py-2 px-4 outline-none' />
+					<button id='delete-post' class='w-1/5 py-1 px-4 text-white bg-emerald-400' type='submit'>댓글</button>
+				</div>
+			</form>
 		</div>
 	`;
 
