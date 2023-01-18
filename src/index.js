@@ -126,7 +126,6 @@ const render = async (element) => {
 				</span>
 				<button class='py-1 px-4 bg-red-400 text-white rounded-lg' value=${commentId}>삭제</button>
 			`;
-			console.log('hello');
 			$commentList.appendChild(newComment);
 		} else {
 			window.alert(message);
