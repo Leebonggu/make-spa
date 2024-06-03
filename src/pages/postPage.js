@@ -54,7 +54,7 @@ async function postPage(params) {
 			<div class='min-h-screen'>
 				${post}
 				${comments}
-				<form id='add-comment-form' class='max-w-[720px] w-full fixed bottom-[-15px] px-5 bg-white'>
+				<form id='add-comment-form' class='max-w-[640px] w-full fixed bottom-[-15px] px-5 bg-white'>
 					<div class='flex overflow-hidden rounded-lg'>
 						<input id='add-comment-input' class='w-4/5 bg-gray-200 py-2 px-4 outline-none' />
 						<button id='delete-post' class='w-1/5 py-1 px-4 text-white bg-emerald-400' type='submit'>댓글</button>
